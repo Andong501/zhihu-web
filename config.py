@@ -12,7 +12,7 @@ class Config: #Config Class
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     FLASKY_MAIL_SUBJECT_PREFIX = '[Flasky]'
-    FLASKY_MAIL_SENDER = '2411797462@qq.com'
+    FLASKY_MAIL_SENDER = os.environ.get('FLASKY_MAIL_SENDER')
     FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN')
     FLASKY_POSTS_PER_PAGE = 20
     FLASKY_FOLLOWERS_PER_PAGE = 50
@@ -25,20 +25,17 @@ class Config: #Config Class
 #3 kinds of subClass
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
-        'mysql://root:Anna501#@localhost/zhihu_dev'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL')
 
 
 class TestingConfig(Config):
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
-        'mysql://root:Anna501#@localhost/zhihu_test'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL')
     WTF_CSRF_ENABLED = False
 
 
 class ProductionConfig(Config):
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'mysql://root:Anna501#@localhost/zhihu'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
 
 # need to add 'email errors to the administrators' later
 
