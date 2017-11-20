@@ -1,0 +1,236 @@
+[2017-11-08 00:14:34 +0800] [46091] [INFO] Starting gunicorn 19.7.1
+[2017-11-08 00:14:34 +0800] [46091] [INFO] Listening at: http://0.0.0.0:2170 (46091)
+[2017-11-08 00:14:34 +0800] [46091] [INFO] Using worker: sync
+[2017-11-08 00:14:34 +0800] [46097] [INFO] Booting worker with pid: 46097
+[2017-11-08 00:14:34 +0800] [46098] [INFO] Booting worker with pid: 46098
+[2017-11-08 00:14:34 +0800] [46099] [INFO] Booting worker with pid: 46099
+[2017-11-08 00:14:34 +0800] [46100] [INFO] Booting worker with pid: 46100
+[2017-11-08 00:14:34 +0800] [46097] [ERROR] unexpected EOF while parsing (<string>, line 1)
+Traceback (most recent call last):
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/workers/base.py", line 135, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/util.py", line 364, in import_app
+    app = eval(obj, vars(mod))
+  File "<string>", line 1
+    app;
+       ^
+SyntaxError: unexpected EOF while parsing
+[2017-11-08 00:14:34 +0800] [46098] [ERROR] unexpected EOF while parsing (<string>, line 1)
+Traceback (most recent call last):
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/workers/base.py", line 135, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/util.py", line 364, in import_app
+    app = eval(obj, vars(mod))
+  File "<string>", line 1
+    app;
+       ^
+SyntaxError: unexpected EOF while parsing
+[2017-11-08 00:14:34 +0800] [46100] [ERROR] unexpected EOF while parsing (<string>, line 1)
+Traceback (most recent call last):
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/workers/base.py", line 135, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/util.py", line 364, in import_app
+    app = eval(obj, vars(mod))
+  File "<string>", line 1
+    app;
+       ^
+SyntaxError: unexpected EOF while parsing
+[2017-11-08 00:14:34 +0800] [46099] [ERROR] unexpected EOF while parsing (<string>, line 1)
+Traceback (most recent call last):
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/workers/base.py", line 135, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/util.py", line 364, in import_app
+    app = eval(obj, vars(mod))
+  File "<string>", line 1
+    app;
+       ^
+SyntaxError: unexpected EOF while parsing
+[2017-11-08 00:14:34 +0800] [46098] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/arbiter.py", line 578, in spawn_worker
+    worker.init_process()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/workers/base.py", line 126, in init_process
+    self.load_wsgi()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/workers/base.py", line 148, in load_wsgi
+    self.reloader.add_extra_file(exc_val.filename)
+AttributeError: 'NoneType' object has no attribute 'add_extra_file'
+[2017-11-08 00:14:34 +0800] [46097] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/arbiter.py", line 578, in spawn_worker
+    worker.init_process()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/workers/base.py", line 126, in init_process
+    self.load_wsgi()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/workers/base.py", line 148, in load_wsgi
+    self.reloader.add_extra_file(exc_val.filename)
+AttributeError: 'NoneType' object has no attribute 'add_extra_file'
+[2017-11-08 00:14:34 +0800] [46099] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/arbiter.py", line 578, in spawn_worker
+    worker.init_process()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/workers/base.py", line 126, in init_process
+    self.load_wsgi()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/workers/base.py", line 148, in load_wsgi
+    self.reloader.add_extra_file(exc_val.filename)
+AttributeError: 'NoneType' object has no attribute 'add_extra_file'
+[2017-11-08 00:14:34 +0800] [46098] [INFO] Worker exiting (pid: 46098)
+[2017-11-08 00:14:34 +0800] [46099] [INFO] Worker exiting (pid: 46099)
+[2017-11-08 00:14:34 +0800] [46100] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/arbiter.py", line 578, in spawn_worker
+    worker.init_process()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/workers/base.py", line 126, in init_process
+    self.load_wsgi()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/workers/base.py", line 148, in load_wsgi
+    self.reloader.add_extra_file(exc_val.filename)
+AttributeError: 'NoneType' object has no attribute 'add_extra_file'
+[2017-11-08 00:14:34 +0800] [46100] [INFO] Worker exiting (pid: 46100)
+[2017-11-08 00:14:34 +0800] [46097] [INFO] Worker exiting (pid: 46097)
+Traceback (most recent call last):
+  File "/Users/misstian/myproject/venv/bin/gunicorn", line 11, in <module>
+    sys.exit(run())
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 74, in run
+    WSGIApplication("%(prog)s [OPTIONS] [APP_MODULE]").run()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/app/base.py", line 203, in run
+    super(Application, self).run()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/app/base.py", line 72, in run
+    Arbiter(self).run()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/arbiter.py", line 231, in run
+    self.halt(reason=inst.reason, exit_status=inst.exit_status)
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/arbiter.py", line 344, in halt
+    self.stop()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/arbiter.py", line 393, in stop
+    time.sleep(0.1)
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/arbiter.py", line 244, in handle_chld
+    self.reap_workers()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/arbiter.py", line 524, in reap_workers
+    raise HaltServer(reason, self.WORKER_BOOT_ERROR)
+gunicorn.errors.HaltServer: <HaltServer 'Worker failed to boot.' 3>
+[2017-11-08 00:15:29 +0800] [46151] [INFO] Starting gunicorn 19.7.1
+[2017-11-08 00:15:29 +0800] [46151] [INFO] Listening at: http://0.0.0.0:2170 (46151)
+[2017-11-08 00:15:29 +0800] [46151] [INFO] Using worker: sync
+[2017-11-08 00:15:29 +0800] [46154] [INFO] Booting worker with pid: 46154
+[2017-11-08 00:15:29 +0800] [46155] [INFO] Booting worker with pid: 46155
+[2017-11-08 00:15:29 +0800] [46156] [INFO] Booting worker with pid: 46156
+[2017-11-08 00:15:29 +0800] [46154] [ERROR] unexpected EOF while parsing (<string>, line 1)
+Traceback (most recent call last):
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/workers/base.py", line 135, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/util.py", line 364, in import_app
+    app = eval(obj, vars(mod))
+  File "<string>", line 1
+    app;
+       ^
+SyntaxError: unexpected EOF while parsing
+[2017-11-08 00:15:29 +0800] [46154] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/arbiter.py", line 578, in spawn_worker
+    worker.init_process()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/workers/base.py", line 126, in init_process
+    self.load_wsgi()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/workers/base.py", line 148, in load_wsgi
+    self.reloader.add_extra_file(exc_val.filename)
+AttributeError: 'NoneType' object has no attribute 'add_extra_file'
+[2017-11-08 00:15:29 +0800] [46154] [INFO] Worker exiting (pid: 46154)
+[2017-11-08 00:15:29 +0800] [46157] [INFO] Booting worker with pid: 46157
+[2017-11-08 00:15:29 +0800] [46155] [ERROR] unexpected EOF while parsing (<string>, line 1)
+Traceback (most recent call last):
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/workers/base.py", line 135, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/util.py", line 364, in import_app
+    app = eval(obj, vars(mod))
+  File "<string>", line 1
+    app;
+       ^
+SyntaxError: unexpected EOF while parsing
+[2017-11-08 00:15:29 +0800] [46155] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/arbiter.py", line 578, in spawn_worker
+    worker.init_process()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/workers/base.py", line 126, in init_process
+    self.load_wsgi()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/workers/base.py", line 148, in load_wsgi
+    self.reloader.add_extra_file(exc_val.filename)
+AttributeError: 'NoneType' object has no attribute 'add_extra_file'
+[2017-11-08 00:15:29 +0800] [46155] [INFO] Worker exiting (pid: 46155)
+[2017-11-08 00:15:29 +0800] [46156] [ERROR] unexpected EOF while parsing (<string>, line 1)
+Traceback (most recent call last):
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/workers/base.py", line 135, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/util.py", line 364, in import_app
+    app = eval(obj, vars(mod))
+  File "<string>", line 1
+    app;
+       ^
+SyntaxError: unexpected EOF while parsing
+[2017-11-08 00:15:29 +0800] [46156] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/arbiter.py", line 578, in spawn_worker
+    worker.init_process()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/workers/base.py", line 126, in init_process
+    self.load_wsgi()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/workers/base.py", line 148, in load_wsgi
+    self.reloader.add_extra_file(exc_val.filename)
+AttributeError: 'NoneType' object has no attribute 'add_extra_file'
+[2017-11-08 00:15:29 +0800] [46156] [INFO] Worker exiting (pid: 46156)
+Traceback (most recent call last):
+  File "/Users/misstian/myproject/venv/bin/gunicorn", line 11, in <module>
+    sys.exit(run())
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 74, in run
+    WSGIApplication("%(prog)s [OPTIONS] [APP_MODULE]").run()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/app/base.py", line 203, in run
+    super(Application, self).run()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/app/base.py", line 72, in run
+    Arbiter(self).run()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/arbiter.py", line 231, in run
+    self.halt(reason=inst.reason, exit_status=inst.exit_status)
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/arbiter.py", line 344, in halt
+    self.stop()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/arbiter.py", line 393, in stop
+    time.sleep(0.1)
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/arbiter.py", line 244, in handle_chld
+    self.reap_workers()
+  File "/Users/misstian/myproject/venv/lib/python2.7/site-packages/gunicorn/arbiter.py", line 524, in reap_workers
+    raise HaltServer(reason, self.WORKER_BOOT_ERROR)
+gunicorn.errors.HaltServer: <HaltServer 'Worker failed to boot.' 3>

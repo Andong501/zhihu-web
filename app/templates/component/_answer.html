@@ -1,0 +1,30 @@
+<li class="post">
+    <div class="post-content">
+        <div class="post-author">
+            <a href="{{ url_for('main.user', username=answer.author.username) }}">
+                 <img class="img-rounded" src="{{ answer.author.gravatar(size=25) }}">
+             </a>
+            <a href="{{ url_for('main.user', username=answer.author.username) }}">{{ answer.author.username }}</a>
+            <span> answers at {{ moment(answer.timestamp).fromNow() }}</span>
+         </div>
+         <div class="post-body">
+             <a href="{{ url_for('main.answer', q_id=answer.question.id, a_id=answer.id) }}">{{ answer.body }}</a>
+        </div>
+    </div>
+    <div class="post-footer">
+        {% if current_user == answer.author %}
+        <a href="{{ url_for('main.editAnswer', q_id=answer.question.id, a_id=answer.id) }}">
+             <span class="label label-primary">Edit</span>
+        </a>
+        {% endif %}
+        <a class='vote-btn' id="{{ answer.id }}" href="#">
+            {% if current_user.voteStatus(answer.id) %}
+            <span class="label label-primary voted">voted</span>
+            {% else %}
+            <span class="label label-primary unvote">vote it</span>
+            {% endif %}
+        </a>
+        <span class='votes'>{{ answer.likes }}</span>
+        <span class='votes'>total votes</span>
+    </div>
+</li>

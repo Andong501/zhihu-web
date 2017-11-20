@@ -1,0 +1,33 @@
+<li class="post">
+    <div class="post-content">
+        <div class="post-body"><h3>{{ question.title }}</h3></div>
+        <div class="post-author">
+            <a href="{{ url_for('main.user', username=question.author.username) }}">
+                 <img class="img-rounded" src="{{ question.author.gravatar(size=25) }}">
+            </a>
+            <a href="{{ url_for('main.user', username=question.author.username) }}">{{ question.author.username }}</a>
+            <span> edits at {{ moment(question.timestamp).fromNow() }}</span>
+        </div>
+    </div>
+    <div class="post-footer">
+            {% if current_user == question.author %}
+            <a href="{{ url_for('main.editQuestion', id=question.id) }}">
+                 <span class="label label-primary">Edit</span>
+            </a>
+            {% endif %}
+            <a class="answer-btn" href="#">
+                <span class="label label-primary">answer it</span>
+            </a>
+            <span class="answers">{{ question.answers.count() }}</span>
+            <span class="answers">total answers</span>
+            <a class="focus-btn" id="{{ question.id }}" href="#">
+                {% if current_user.focusStatus(question.id) %}
+                <span class="label label-primary focused">focused</span>
+                {% else %}
+                <span class="label label-primary unfocus">focus it</span>
+                {% endif %}
+            </a>
+            <span class="focuses">{{ question.focuses }} </span>
+            <span class="focuses">total focuses</span>
+    </div>
+</li>

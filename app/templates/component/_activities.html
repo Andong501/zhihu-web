@@ -1,0 +1,114 @@
+<ul class="posts">
+    {% for activity in activities %}
+        {% if activity.action == 1 %}
+            <li class="post">
+                <div class="post-header">
+                    <a href="{{ url_for('main.user', username=activity.owner.username) }}">
+                        <img class="img-rounded" src="{{ activity.owner.gravatar(size=25) }}">
+                    </a>
+                    <a href="{{ url_for('main.user', username=activity.owner.username) }}">{{ activity.owner.username }}</a>
+                    <span> asks this question · {{ moment(activity.timestamp).fromNow() }}</span>
+                </div>
+                <div class="post-content">
+                    <div class="post-title">
+                        <a href="{{ url_for('main.question', id=activity.question.id) }}"><h3>{{ activity.question.title }}</h3></a>
+                    </div>
+                </div>
+                <div class="post-footer">
+                    <span class="label label-primary">{{ activity.question.answers.count() }} Answers</span>
+                    <span class="label label-primary">{{ activity.question.focuses }} focuses</span>
+                    {% if current_user == activity.question.author %}
+                    <a href="{{ url_for('main.editQuestion', id=activity.question.id) }}">
+                        <span class="label label-primary">Edit</span>
+                    </a>
+                    {% endif %}
+                </div>
+            </li>
+        {% endif %}
+        {% if activity.action == 2 %}
+            <li class="post">
+                <div class="post-header">
+                    <a href="{{ url_for('main.user', username=activity.owner.username) }}">
+                        <img class="img-rounded" src="{{ activity.owner.gravatar(size=25) }}">
+                    </a>
+                    <a href="{{ url_for('main.user', username=activity.owner.username) }}">{{ activity.owner.username }}</a>
+                    <span> answers this answer · {{ moment(activity.timestamp).fromNow() }}</span>
+                </div>
+                <div class="post-content">
+                    <div class="post-title">
+                        <a href="{{ url_for('main.question', id=activity.answer.question.id) }}"><h3>{{ activity.answer.question.title }}</h3></a>
+                    </div>
+                    <div class="post-body">
+                        <a href="{{ url_for('main.answer', q_id=activity.answer.question.id, a_id=activity.answer.id) }}">{{ activity.answer.body }}</a>
+                    </div>
+                </div>
+                <div class="post-footer">
+                    <span class="label label-primary">{{ activity.answer.likes }} Likes</span>
+                    {% if current_user == activity.answer.author %}
+                    <a href="{{ url_for('main.editAnswer', q_id=activity.answer.question.id, a_id=activity.answer.id) }}">
+                        <span class="label label-primary">Edit</span>
+                    </a>
+                    {% endif %}
+                </div>
+            </li>
+        {% endif %}
+        {% if activity.action == 3 %}
+            <li class="post">
+                <div class="post-header">
+                    <a href="{{ url_for('main.user', username=activity.owner.username) }}">{{ activity.owner.username }}</a>
+                    <span> focuses this question · {{ moment(activity.timestamp).fromNow() }}</span>
+                </div>
+                <div class="post-content">
+                    <div class="post-author">
+                        <a href="{{ url_for('main.user', username=activity.question.author.username) }}">
+                            <img class="img-rounded" src="{{ activity.question.author.gravatar(size=25) }}">
+                        </a>
+                        <a href="{{ url_for('main.user', username=activity.question.author.username) }}">{{ activity.question.author.username }}</a>
+                    </div>
+                    <div class="post-title">
+                        <a href="{{ url_for('main.question', id=activity.question.id) }}"><h3>{{ activity.question.title }}</h3></a>
+                    </div>
+                </div>
+                <div class="post-footer">
+                    <span class="label label-primary">{{ activity.question.answers.count() }} Answers</span>
+                    <span class="label label-primary">{{ activity.question.focuses }} focuses</span>
+                    {% if current_user == activity.question.author %}
+                    <a href="{{ url_for('main.editQuestion', id=activity.question.id) }}">
+                        <span class="label label-primary">Edit</span>
+                    </a>
+                    {% endif %}
+                </div>
+            </li>
+        {% endif %}
+        {% if activity.action == 4 %}
+            <li class="post">
+                <div class="post-header">
+                    <a href="{{ url_for('main.user', username=activity.owner.username) }}">{{ activity.owner.username }}</a>
+                    <span> likes this answer · {{ moment(activity.timestamp).fromNow() }}</span>
+                </div>
+                <div class="post-content">
+                    <div class="post-author">
+                        <a href="{{ url_for('main.user', username=activity.answer.author.username) }}">
+                            <img class="img-rounded" src="{{ activity.answer.author.gravatar(size=25) }}">
+                        </a>
+                        <a href="{{ url_for('main.user', username=activity.answer.author.username) }}">{{ activity.answer.author.username }}</a>
+                    </div>
+                    <div class="post-title">
+                        <a href="{{ url_for('main.question', id=activity.answer.question.id) }}"><h3>{{ activity.answer.question.title }}</h3></a>
+                    </div>
+                    <div class="post-body">
+                        <a href="{{ url_for('main.answer', q_id=activity.answer.question.id, a_id=activity.answer.id) }}">{{ activity.answer.body }}</a>
+                    </div>
+                </div>
+                <div class="post-footer">
+                    <span class="label label-primary">{{ activity.answer.likes }} Likes</span>
+                    {% if current_user == activity.answer.author %}
+                    <a href="{{ url_for('main.editAnswer', q_id=activity.answer.question.id, a_id=activity.answer.id) }}">
+                        <span class="label label-primary">Edit</span>
+                    </a>
+                    {% endif %}
+                </div>
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>

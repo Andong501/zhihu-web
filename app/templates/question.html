@@ -1,0 +1,22 @@
+{% extends "base/main_base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "component/_macros.html" as macros %}
+
+{% block title %}Flasky - Question{% endblock %}
+
+{% block up_content %}
+	{% include 'component/_questions.html' %}
+{% endblock %}
+
+{% block left_content %}
+<div class="answer-form">
+    {{ wtf.quick_form(form) }}
+</div>
+<h4 id="answers">Answers</h4>
+{% include 'component/_answers.html' %}
+{% if pagination %}
+<div class="pagination">
+    {{ macros.pagination_widget(pagination, 'main.question', fragment='#answers', id=questions[0].id) }}
+</div>
+{% endif %}
+{% endblock %}

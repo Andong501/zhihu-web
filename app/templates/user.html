@@ -1,0 +1,67 @@
+{% extends "base/main_base.html" %}
+{% import "component/_macros.html" as macros %}
+
+{% block title %}Flasky - {{ user.username }}{% endblock %}
+
+{% block up_content %}
+<div class="page-header info-board">
+    <img class="img-rounded profile-thumbnail" src="{{ user.gravatar(size=240) }}">
+    <div class="profile-header">
+        <h1>{{ user.username }}</h1>
+        {% if user.name or user.location %}
+        <p>
+            {% if user.name %}{{ user.name }}<br>{% endif %}
+            {% if user.location %}
+                From <a href="http://maps.google.com/?q={{ user.location }}">{{ user.location }}</a><br>
+            {% endif %}
+        </p>
+        {% endif %}
+        {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
+        <p>Member since {{ moment(user.member_since).format('L') }}. Last seen {{ moment(user.last_seen).fromNow() }}.</p>
+        <p>
+            {% if user == current_user %}
+            <a class="btn btn-default" href="{{ url_for('.editUser') }}">Edit Profile</a>
+            {% endif %}
+        </p>
+        <p>
+        {% if user != current_user %}
+            {% if not current_user.is_following(user) %}
+                <a href="{{ url_for('main.follow', username=user.username) }}" class="btn btn-primary">Follow</a>
+            {% else %}
+                <a href="{{ url_for('main.unfollow', username=user.username) }}" class="btn btn-primary">Unfollow</a>
+            {% endif %}
+        {% endif %}
+        {% if user != current_user and user.is_following(current_user) %}
+        | <span class="label label-default">Follows you</span>
+        {% endif %}
+        </p>
+    </div>
+</div>
+{% endblock %}
+
+{% block left_content %}
+{% include 'component/_activities.html' %}
+{% if pagination %}
+<div class="pagination">
+    {{ macros.pagination_widget(pagination, 'main.index') }}
+</div>
+{% endif %}
+{% endblock %}
+
+{% block right_content %}
+<div class="fames">
+     <div class="fame">
+        <span>Self fames</span>
+     </div>
+     <div class="fame">
+        <a href="{{ url_for('main.followed_by', username=user.username) }}"><span>{{ user.followeds.count() - 1 }}</span><span>Following</span></a>
+    </div>
+    <div class="fame">
+        <a href="{{ url_for('main.followers', username=user.username) }}"><span>{{ user.followers.count() - 1 }}</span><span>Followers</span></a>
+    </div>
+    <div class="fame">
+        <a href="#"><span>{{ user.likes }}</span><span>Likes</span></a>
+    </div>
+</div>
+
+{% endblock %}

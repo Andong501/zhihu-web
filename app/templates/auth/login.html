@@ -1,0 +1,31 @@
+{% extends "base/auth_base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Flasky - Login{% endblock %}
+
+{% block up_content%}
+<h1>Zhi Hu</h1>
+<div class="slogan">
+	<p>Share the World with Your Knowledge, Experiences, and Idea.</p>
+</div>
+{% endblock %}
+
+{% block mid_content %}
+<div class="form-top log">
+	<div class="form-top-right"><a href="{{ url_for('auth.login') }}"><span>Login</span></a></div>
+	<div class="form-top-left"><a href="{{ url_for('auth.register') }}"><span>Register</span></a></div>
+</div>
+<div class="form-bottom">
+	<div class="form-group">
+		<form class="form" method="POST">
+    		{{ form.hidden_tag() }}
+    		{{ form.email(class="form-control log-input", placeholder="email") }}
+    		{{ form.password(class="form-control log-input", placeholder="password") }}
+    		<label class="log-label">
+    		{{ form.remember_me() }} keep me logged in
+    		</label>
+    		{{ form.submit(class="btn btn-primary btn-md btn-block log-btn") }}
+		</form>
+	</div>
+</div>
+{% endblock %}
