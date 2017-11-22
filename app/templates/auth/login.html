@@ -16,16 +16,14 @@
 	<div class="form-top-left"><a href="{{ url_for('auth.register') }}"><span>Register</span></a></div>
 </div>
 <div class="form-bottom">
-	<div class="form-group">
-		<form class="form" method="POST">
-    		{{ form.hidden_tag() }}
-    		{{ form.email(class="form-control log-input", placeholder="email") }}
-    		{{ form.password(class="form-control log-input", placeholder="password") }}
-    		<label class="log-label">
-    		{{ form.remember_me() }} keep me logged in
-    		</label>
-    		{{ form.submit(class="btn btn-primary btn-md btn-block log-btn") }}
-		</form>
-	</div>
+	<form class="form" method="POST", role="form">
+    	{{ form.hidden_tag() }}
+    	{{ form.email(class="form-control log-input", placeholder="email") }}
+    	{% if form.email.errors %}<span class="log-email-error">{{ form.email.errors[0] }}</span>{% endif %}
+    	{{ form.password(class="form-control log-input", placeholder="password") }}
+    	{% if form.password.errors %}<span class="log-pw-error">{{ form.password.errors[0] }}</span>{% endif %}
+    	<label class="remember-me">{{ form.remember_me() }} Remenber me</label>
+    	{{ form.submit(class="btn btn-primary btn-md btn-block log-btn") }}
+	</form>
 </div>
 {% endblock %}

@@ -40,7 +40,7 @@ div.container {
     float: right;
 }
 .log-input {
-    height: 50px;
+    height: 48px;
     border: 0px;
 }
 .log-label {
@@ -49,8 +49,27 @@ div.container {
 .log-btn {
     margin-top: 15px;
 }
+.remember-me {
+    margin-top: 15px;
+}
+.log-email-error {
+    position: absolute;
+    top: 54px;
+    right: 8px;
+    padding: 0px 16px;
+    line-height: 48px;
+    color: #c33;
+}
+.log-pw-error {
+    position: absolute;
+    top: 102px;
+    right: 8px;
+    padding: 0px 16px;
+    line-height: 48px;
+    color: #c33;
+}
 .reg-input {
-    height: 50px;
+    height: 48px;
     border: 0px;
 }
 .reg-label {
@@ -58,6 +77,38 @@ div.container {
 }
 .reg-btn {
     margin-top: 15px;
+}
+.reg-email-error {
+    position: absolute;
+    top: 54px;
+    right: 8px;
+    padding: 0px 16px;
+    line-height: 48px;
+    color: #c33;
+}
+.reg-un-error {
+    position: absolute;
+    top: 102px;
+    right: 8px;
+    padding: 0px 16px;
+    line-height: 48px;
+    color: #c33;
+}
+.reg-pw-error {
+    position: absolute;
+    top: 150px;
+    right: 8px;
+    padding: 0px 16px;
+    line-height: 48px;
+    color: #c33;
+}
+.reg-pw2-error {
+    position: absolute;
+    top: 198px;
+    right: 8px;
+    padding: 0px 16px;
+    line-height: 48px;
+    color: #c33;
 }
 /* user page */
 .info-board {

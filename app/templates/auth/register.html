@@ -20,9 +20,13 @@
 		<form class="form" method="POST">
     		{{ form.hidden_tag() }}
     		{{ form.email(class="form-control reg-input", placeholder="email") }}
+    		{% if form.email.errors %}<span class="reg-email-error">{{ form.email.errors[0] }}</span>{% endif %}
     		{{ form.username(class="form-control reg-input", placeholder="username") }}
+    		{% if form.username.errors %}<span class="reg-un-error">{{ form.username.errors[0] }}</span>{% endif %}
     		{{ form.password(class="form-control reg-input", placeholder="password") }}
+    		{% if form.password.errors %}<span class="reg-pw-error">{{ form.password.errors[0] }}</span>{% endif %}
     		{{ form.password2(class="form-control reg-input", placeholder="confirm password") }}
+    		{% if form.password2.errors %}<span class="reg-pw2-error">{{ form.password2.errors[0] }}</span>{% endif %}
     		{{ form.submit(class="btn btn-primary btn-md btn-block reg-btn") }}
 		</form>
 	</div>

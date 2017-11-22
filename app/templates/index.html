@@ -18,6 +18,7 @@
             {{ form.hidden_tag() }}
             {{ form.title.label }}
             {{ form.title(class="form-control ask-input", placeholder="Please write the title and description of your question.") }}
+            {% if form.title.errors %}<span class="log-title-error">{{ form.title.errors[0] }}</span>{% endif %}
             {{ form.submit(class="btn btn-primary btn-md ask-btn") }}
             <button type="button" class="btn btn-default ask-btn" data-dismiss="modal">Close</button>
         </form>

@@ -56,4 +56,5 @@ $(function(){
 	$('.answer-btn').click(function(){
 		$('.answer-form').slideToggle('slow');
 	});
+
 });
