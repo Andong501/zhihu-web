@@ -185,10 +185,30 @@ textarea.ask-input {
 .ask-btn {
     margin-top: 20px;
 }
+.ask-submit-btn {
+    margin-top: 20px;
+}
+.ask-title-error {
+    display: none;
+    margin-top: 15px;
+    color: #c33;
+}
 .answer-form {
     display: none;
     background-color: #FFF;
     padding: 20px;
+}
+textarea.answer-input {
+    margin-top: 15px;
+    height: 150px;
+}
+.answer-body-error {
+    display: none;
+    margin-top: 15px;
+    color: #c33;
+}
+.answer-submit-btn {
+    margin-top: 20px;
 }
 .answers {
     color: #888;

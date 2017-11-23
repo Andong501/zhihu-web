@@ -15,11 +15,10 @@
       </div>
       <div class="modal-body">
         <form class="form" method="POST">
-            {{ form.hidden_tag() }}
-            {{ form.title.label }}
-            {{ form.title(class="form-control ask-input", placeholder="Please write the title and description of your question.") }}
-            {% if form.title.errors %}<span class="log-title-error">{{ form.title.errors[0] }}</span>{% endif %}
-            {{ form.submit(class="btn btn-primary btn-md ask-btn") }}
+            <label>What do you want to ask?</label>
+            <textarea type="text" class="form-control ask-input" placeholder="Please write the title and description of your question."></textarea>
+            <p class="ask-title-error">This field is required.</p>
+            <button type="button" class="btn btn-primary btn-md ask-submit-btn">Submit</button>
             <button type="button" class="btn btn-default ask-btn" data-dismiss="modal">Close</button>
         </form>
       </div>

@@ -10,7 +10,12 @@
 
 {% block left_content %}
 <div class="answer-form">
-    {{ wtf.quick_form(form) }}
+    <form class="form" method="POST">
+    	<label>What is your mind about this question?</label>
+    	<textarea type="text" class="form-control answer-input" placeholder="Please write your answer."></textarea>
+        <p class="answer-body-error">This field is required.</p>
+        <button type="button" class="btn btn-default btn-md answer-submit-btn" id="{{ questions[0].id }}">Submit</button>
+    </form>
 </div>
 <h4 id="answers">Answers</h4>
 {% include 'component/_answers.html' %}

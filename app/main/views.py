@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import render_template, session, redirect, url_for,flash, abort, request, current_app
+from flask import render_template, session, redirect, url_for,flash, abort, request, current_app, jsonify
 from flask_login import login_required, current_user
 
 from . import main
@@ -10,20 +10,23 @@ from ..models import User, Question, Follow, Answer, Activity
 @main.route('/', methods=['GET', 'POST'])
 @login_required
 def index():
-	form = AskForm()
-	if form.validate_on_submit():
-		question = Question(title=form.title.data, author=current_user._get_current_object())
+	title = request.form.get('title')
+	click = request.form.get('click')
+	if title and click:
+		question = Question(title=title, author=current_user._get_current_object())
 		activity = Activity(owner=current_user._get_current_object(), question=question, action=1)
 		db.session.add(question)
 		db.session.add(activity)
-		return redirect(url_for('main.index'))
-	#get user's followed activities
-	query = current_user.followed_activities()
-	page = request.args.get('page', 1, type=int)
-	pagination = query.order_by(Activity.timestamp.desc()).paginate(\
-		page, per_page=current_app.config['FLASKY_POSTS_PER_PAGE'], error_out=False)
-	activities = pagination.items
-	return render_template('index.html', form=form, activities=activities, pagination=pagination)
+		return 'ok'
+	elif click:
+		return 'error'
+	else:
+		query = current_user.followed_activities()
+		page = request.args.get('page', 1, type=int)
+		pagination = query.order_by(Activity.timestamp.desc()).paginate(\
+			page, per_page=current_app.config['FLASKY_POSTS_PER_PAGE'], error_out=False)
+		activities = pagination.items
+		return render_template('index.html', activities=activities, pagination=pagination)
 
 @main.route('/user/<username>')
 @login_required
@@ -53,21 +56,28 @@ def editUser():
 @login_required
 def question(id):
 	question = Question.query.get_or_404(id)
-	form = AnswerForm()
-	if form.validate_on_submit():
-		add_answer = Answer(body=form.body.data, question=question, \
+	body = request.form.get('body')
+	click = request.form.get('click')
+	if body and click:
+		add_answer = Answer(body=body, question=question, \
 			author=current_user._get_current_object())
 		activity = Activity(owner=current_user._get_current_object(), answer=add_answer, action=2)
 		db.session.add(add_answer)
 		db.session.add(activity)
 		add_answer = db.session.merge(add_answer)
-		return redirect(url_for('main.answer', q_id=question.id, a_id=add_answer.id))
-	page = request.args.get('page', 1, type=int)
-	pagination = question.answers.order_by(Answer.timestamp.desc()).paginate(\
-		page, per_page=current_app.config['FLASKY_POSTS_PER_PAGE'], error_out=False)
-	answers = pagination.items
-	return render_template('question.html', form=form, questions=[question], \
-		answers=answers, pagination=pagination) #Need to add []
+		return jsonify({
+			'status': 'ok',
+			'location': url_for('main.answer', q_id=question.id, a_id=add_answer.id)
+			})
+	elif click:
+		return 'error'
+	else:
+		page = request.args.get('page', 1, type=int)
+		pagination = question.answers.order_by(Answer.timestamp.desc()).paginate(\
+			page, per_page=current_app.config['FLASKY_POSTS_PER_PAGE'], error_out=False)
+		answers = pagination.items
+		return render_template('question.html', questions=[question], \
+			answers=answers, pagination=pagination) #Need to add []
 
 @main.route('/question/<int:id>/edit', methods=['GET', 'POST'])
 @login_required
@@ -128,7 +138,7 @@ def vote_or_cancel():
 		return jsonify({
 			'status': 302,
 			'location': url_for('auth.login', next=request.refferer.replace(\
-			url_for('main.login', _external=True)[:-1], ''))
+			url_for('main.index', _external=True)[:-1], ''))
 			})
 	a_id = int(request.form.get('id'))
 	answer = Answer.query.get_or_404(a_id)
@@ -160,7 +170,7 @@ def focus_or_cancel():
 		return jsonify({
 			'status': 302,
 			'location': url_for('auth.login', next=request.refferer.replace(\
-			url_for('main.login', _external=True)[:-1], ''))
+			url_for('main.index', _external=True)[:-1], ''))
 			})
 	q_id = int(request.form.get('id'))
 	question = Question.query.get_or_404(q_id)

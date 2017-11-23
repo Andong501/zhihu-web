@@ -19,7 +19,7 @@ $(function(){
 					votebtn.children().css('background-color', '#428bca');
 					votenum.text(Number(votenum.text()) - 1);
 				}else if(data.status==302){
-					location.href = data.location;
+					window.location.href = data.location;
 				}
 			}
 		});
@@ -46,7 +46,7 @@ $(function(){
 					focusbtn.children().css('background-color', '#428bca');
 					focusnum.text(Number(focusnum.text()) - 1);
 				}else if(data.status==302){
-					location.href = data.location
+					window.location.href = data.location;
 				}
 			}
 		});
@@ -55,6 +55,47 @@ $(function(){
 
 	$('.answer-btn').click(function(){
 		$('.answer-form').slideToggle('slow');
+	});
+
+
+	$('.ask-submit-btn').click(function(){
+		var data = {
+			'title': $('.ask-input').val(),
+			'click': true
+		};
+	$.ajax({
+			type: 'POST',
+			url: '/',
+			data: data,
+			success: function(data){
+				if(data=='ok'){
+					window.location.reload();
+				}else if(data=='error'){
+					$('.ask-title-error').show();
+				}
+			}
+		});
+	});
+
+
+	$('.answer-submit-btn').click(function(){
+		var id = $(this).prop('id');
+		var data = {
+			'body': $('.answer-input').val(),
+			'click': true
+		};
+	$.ajax({
+			type:'POST',
+			url: '/question/' + id,
+			data: data,
+			success: function(data){
+				if(data=='error'){
+					$('.answer-body-error').show();
+				}else if(data.status=='ok'){
+					window.location.href = data.location;
+				}
+			}
+		});
 	});
 
 });
