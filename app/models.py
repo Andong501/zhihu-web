@@ -2,9 +2,10 @@ from datetime import datetime
 import hashlib
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from flask import current_app, request
+from flask import current_app, request, url_for
 from flask_login import UserMixin, current_user
 
+from app.exceptions import ValidationError
 from . import db, login_manager
 
 class Follow(db.Model):
@@ -108,6 +109,42 @@ class User(UserMixin, db.Model):
 		db.session.add(self)
 		return True
 
+	def generate_auth_token(self, expiration):
+		s = Serializer(current_app.config['SECRET_KEY'], expiration)
+		return s.dumps({'id': self.id})
+
+	@staticmethod
+	def verify_auth_token(token):
+		s = Serializer(current_app.config['SECRET_KEY'])
+		try:
+			data = s.loads(token)
+		except:
+			return None
+		return User.query.get(data['id'])
+
+	def to_json(self):
+		json_user = {
+			'url': url_for('api.get_user', id=self.id, _external=True),
+			'username': self.username,
+			'member_since': self.member_since,
+			'last_seen': self.last_seen,
+			'location': self.location,
+			'about_me' : self.about_me,
+			'questions': url_for('api.get_user_questions', id=self.id, _external=True),
+			'answers': url_for('api.get_user_answers', id=self.id, _external=True),
+			'activities': url_for('api.get_user_activities', id=self.id, _external=True),
+			'followed_activities': url_for('api.get_user_followed_activities', \
+				id=self.id, _external=True),
+			'followers': url_for('api.get_user_followers', id=self.id, _external=True),
+			'followeds': url_for('api.get_user_followeds', id=self.id, _external=True),
+			'question_count': self.questions.count(),
+			'answer_count': self.answers.count(),
+			'followed_count': self.followeds.count(),
+			'follower_count': self.followers.count(),
+			'like_count': self.likes
+		}
+		return json_user
+
 	#update last_seen before every request
 	def ping(self): 
 		self.last_seen = datetime.utcnow()
@@ -140,13 +177,13 @@ class User(UserMixin, db.Model):
 		return self.followers.filter_by(follower_id=user.id).first() is not None
 
 	def followed_questions(self):
-		#join search would be faster embedded search
+		#join search would be faster than embedded search
 		#return a query
 		return Question.query.join(Follow, Question.author_id==Follow.followed_id)\
 		.filter(Follow.follower_id==self.id)
 
 	def followed_activities(self):
-		#join search would be faster embedded search
+		#join search would be faster than embedded search
 		#return a query
 		return Activity.query.join(Follow, Activity.owner_id==Follow.followed_id)\
 		.filter(Follow.follower_id==self.id)
@@ -202,6 +239,25 @@ class Question(db.Model):
 			db.session.add(ac)
 			db.session.commit()
 
+	def to_json(self):
+		json_question = {
+			'url': url_for('api.get_question', id=self.id, _external=True),
+			'title': self.title,
+			'timestamp': self.timestamp,
+			'author': url_for('api.get_user', id=self.author_id, _external=True),
+			'answers': url_for('api.get_question_answers', id=self.id, _external=True),
+			'answer_count': self.answers.count(),
+			'focus_count': self.focuses
+		}
+		return json_question
+
+	@staticmethod
+	def from_json(json_question):
+		title = json_question.get('title')
+		if title is None or title == '':
+			raise ValidationError('question does not have a title')
+		return Question(title=title)
+
 
 class Answer(db.Model):
 	__tablename__ = 'answers'
@@ -233,6 +289,24 @@ class Answer(db.Model):
 			db.session.add(a)
 			db.session.add(ac)
 			db.session.commit()
+
+	def to_json(self):
+		json_answer = {
+			'url': url_for('api.get_answer', q_id=self.question_id, a_id=self.id, _external=True),
+			'body': self.body,
+			'timestamp': self.timestamp,
+			'author': url_for('api.get_user', id=self.author_id, _external=True),
+			'question': url_for('api.get_question', id=self.question_id, _external=True),
+			'like_count': self.likes
+		}
+		return json_answer
+
+	@staticmethod
+	def from_json(json_answer):
+		body = json_answer.get('body')
+		if body is None or body == '':
+			raise ValidationError('answer does not have a body')
+		return Answer(body=body)
 
 
 class Activity(db.Model):
@@ -269,6 +343,25 @@ class Activity(db.Model):
 				question=q, answer=a, owner=u)
 			db.session.add(ac)
 			db.session.commit()
+
+	def to_json(self):
+		if self.question_id:
+			json_activity = {
+				'url': url_for('api.get_activity', id=self.id, _external=True),
+				'action': self.action,
+				'timestamp': self.timestamp,
+				'owner': url_for('api.get_user', id=self.owner_id, _external=True),
+				'question': url_for('api.get_question', id=self.question_id, _external=True),
+			}
+		else:
+			json_activity = {
+				'url': url_for('api.get_activity', id=self.id, _external=True),
+				'action': self.action,
+				'timestamp': self.timestamp,
+				'owner': url_for('api.get_user', id=self.owner_id, _external=True),
+				'answer': url_for('api.get_answer', q_id=self.answer.question_id, a_id=self.answer_id, _external=True),
+			}
+		return json_activity
 
 
 
